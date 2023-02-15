@@ -97,7 +97,7 @@ def close_connection() -> None:
         return False
 
 
-def change_db(DB: str) -> bool:
+def change_db(DB: str) -> None:
     '''
     change database if server connected
     '''
@@ -124,37 +124,23 @@ def change_db(DB: str) -> bool:
 # CONTROL QUERIES
 # ###############
 
-# #######################
-# DATABSE MANIPULATION
-# #######################
-
-def execute_qry(qry: str) -> str:
-    '''
-    Attempts to execute given query on database.
-    Returns output from database.
-    '''
-    try:
-        return cursor.execute(qry)
-    except Exception as e:
-        return e
-
 # #################################
 # Suggestions TABLE CRUD OPERATIONS
 # #################################
 
 
 # CREATE
-def create_suggestion(suggestion: str) -> str:
+def create_suggestion(suggestion: str) -> None:
     '''
     Creates a new entry in database with given suggestion.
-    Max suggestion length is 1000 characters.
+    Max suggestion length is 500 characters.
     '''
     try:
-        if len(suggestion) > 1000:
+        if len(suggestion) > 500:
             print('Suggestion exceeds character limit')
             return ''
         qry = "INSERT INTO Suggestions (suggestion) VALUES (%s);" % suggestion
-        return cursor.execute(qry)
+        cursor.execute(qry)
     except Exception as e:
         print(e)
         return ''
@@ -238,9 +224,9 @@ def get_suggestion_id_range() -> tuple[int, int]:
 
 
 # UPDATE
-def update_session(suggestion_id: int, suggestion: str) -> None:
+def update_suggestion(suggestion_id: int, suggestion: str) -> None:
     '''
-    Update session with given suggestion id.
+    Update suggestion with given suggestion id.
     '''
     try:
         qry = '''

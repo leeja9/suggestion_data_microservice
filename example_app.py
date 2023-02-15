@@ -26,7 +26,7 @@ if __name__ == '__main__':
     print('Suggestion Table data:\n', table)
 
     # Example of updating data
-    connector.update_session(1, 'Example update')
+    connector.update_suggestion(1, 'Example update')
     table = connector.get_suggestion_table()
     print('Suggestion Table with updated data:\n', table)
 
