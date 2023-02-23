@@ -30,28 +30,21 @@ The following should be installed prior to starting this service:
 1. Ensure prerequisite applications are installed in your environment.
 2. Review and load the `DDL.sql` into your mysql datbase.
 3. Edit the .env file to match your database login criteria.
-    - Alternatively, the `init_connection()` function of `SuggestionService` can take these arguments directly.
-4. Import `SuggestionService` into your app.
-    - `example_app.py` shows how the connector can be used.
-5. Initiate connection
-6. Use service as needed for the app
-7. Close connection
+4. Start Suggestion Service by running `python3 SuggestionService.py`
+5. Run your app and make calls to the service via socket connection. See `example_app.py` for basic implementation.
+6. Send `stop` to the Suggestion Service from your app to close all connections.
 
 ## Service UML
 
 ![UML Diagram](./resources/suggestion_service_UML.svg)
 
-## How to request data
+## How to send and request data
 
-- To request data, first import the service to your app.
-- Next, initiate a connection as shown in the example app:
-![figure1](./resources/figure1_import-service.png)
+- Send data using the `socket` function: `socket.sendall()` as shown in figure1
+- Request data by passing the service function name through the socket.
+    - Service functions are under "Suggestions TABLE CRUD OPERATIONS" in `SuggestionService.py`
+    - The request string is parsed by the `get_response()` in `SuggestionService.py` and calls the matching service function.
 
-- Initiating the connection will create a socket connection to your database using `mysql-connector-python`
-![figure2](./resources/figure2_service-init.png)
+figure1
 
-## How to receive data
-
-- After importing the service and initiating a connection, use the service functions to get data.
-- Service functions show input datatypes, return types, and have docstrings explaining functionality:
-![figure3](./resources/figure3_return-data.png)
+![figure1](./resources/figure1_example.png)
